@@ -1,0 +1,8 @@
+# Bundler
+/.bundle/
+/bin/
+/bundle/
+/vendor/gems/
+
+# Vagrant
+.vagrant
