@@ -3,15 +3,11 @@ GEM
   specs:
     diff-lcs (1.2.1)
     facter (1.6.18)
-    hiera (1.1.2)
-      json_pure
-    json_pure (1.7.7)
     metaclass (0.0.1)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
-    puppet (3.1.1)
-      facter (~> 1.6)
-      hiera (~> 1.0)
+    puppet (2.7.21)
+      facter (~> 1.5)
     puppetlabs_spec_helper (0.4.1)
       mocha (>= 0.10.5)
       rake
@@ -33,7 +29,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  puppet
-  puppetlabs_spec_helper
+  puppet (~> 2.7)
+  puppetlabs_spec_helper (~> 0.4)
   rake
-  rspec-puppet
+  rspec-puppet (~> 0.1)
