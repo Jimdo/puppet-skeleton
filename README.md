@@ -14,15 +14,15 @@ Testing
 =======
 
 The module comes with some testing facilities allowing you to iterate quickly
-on module changes. After installing the required Ruby gems with Bundler, most
+on module changes. After installing Vagrant and the required Ruby gems, most
 of the testing can be done through convenient Rake tasks.
 
 ## Bundler
 
-All tools you need for module development are installed as Ruby gems using
-[Bundler](http://gembundler.com). This gives you complete control over your
-software stack and makes sure that, for example, you're using the same version
-of Puppet for testing as in production.
+Apart from Vagrant, which is described later on, all tools you need for module
+development and testing are installed as Ruby gems using [Bundler](http://gembundler.com).
+This gives you a lot of control over the software stack ensuring that the
+testing environment matches your production environment.
 
 First, make sure you have Bundler (which is itself a gem):
 
@@ -32,7 +32,7 @@ Then let Bundler install the required gems (as defined in `Gemfile`):
 
     $ bundle install
 
-Now you can use `bundle exec` to execute a command from the gems, for example:
+Now you can use `bundle exec` to execute a command from the gemset, for example:
 
     $ bundle exec rake test
 
@@ -85,6 +85,15 @@ specified in the `Vagrantfile`:
 In case the VM is already up, you can run the provisioners again with:
 
     $ vagrant provision
+
+## Travis CI
+
+The module includes a configuration for [Travis CI](https://travis-ci.org) that
+will run `rake test` each time changes are pushed to GitHub. Simply enable Travis
+for your GitHub repository to get free continuous integration.
+
+Implementing CI with other systems should be as simple as running the commands
+in `.travis.yml`.
 
 License and Author
 ==================
