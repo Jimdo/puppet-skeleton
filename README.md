@@ -86,6 +86,10 @@ In case the VM is already up, you can run the provisioners again with:
 
     $ vagrant provision
 
+Finally, if you no longer need the VM, you can destroy it:
+
+    $ vagrant destroy --force
+
 ## Travis CI
 
 The module includes a configuration for [Travis CI](https://travis-ci.org) that
