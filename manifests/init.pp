@@ -1,1 +1,3 @@
-# Install/configure something here
+class skeleton {
+  # Install/configure something here
+}
