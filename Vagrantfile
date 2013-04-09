@@ -6,7 +6,7 @@ Vagrant::Config.run do |config|
   config.vm.host_name = 'skeleton-debian'
 
   # TODO: do this using the apt puppet module
-  config.vm.provision :shell, :inline => 'apt-get update'
+  # config.vm.provision :shell, :inline => 'apt-get update'
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = 'manifests'
