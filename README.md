@@ -15,6 +15,8 @@ Testing
 Everything you need to know about testing this module is explained in
 `TESTING.md`.
 
+[![Build Status](https://travis-ci.org/Jimdo/puppet-skeleton.png?branch=master)](https://travis-ci.org/Jimdo/puppet-skeleton)
+
 License and Author
 ==================
 
