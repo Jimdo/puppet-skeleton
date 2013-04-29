@@ -42,7 +42,7 @@ namespace :vagrant do
     end.each { |cmd| sh 'vagrant', cmd }
   end
 
-  task :halt => :export_vars do
+  task :halt do
     sh 'vagrant', 'halt', '--force'
   end
 
