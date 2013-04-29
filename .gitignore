@@ -4,6 +4,10 @@
 /bundle/
 /vendor/gems/
 
+# Librarian-Puppet
+/.librarian/
+/.tmp/
+
 # Vagrant
 .vagrant
 
