@@ -7,7 +7,7 @@ rvm:
 
 install: bundle install
 
-script: bundle exec rake test
+script: bundle exec rake travis
 
 branches:
   only:

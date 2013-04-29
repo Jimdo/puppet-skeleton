@@ -1,8 +1,5 @@
 require 'puppetlabs_spec_helper/rake_tasks'
 
-desc 'Run all tests'
-task :test => [:lint, :spec]
-
 namespace :vagrant do
   MODULE_NAME    = ENV.fetch('MODULE_NAME',
                              File.basename(File.dirname(__FILE__)).
@@ -62,3 +59,9 @@ namespace :vagrant do
     sh 'vagrant', 'destroy', '--force'
   end
 end
+
+desc 'Run lint checks and spec examples'
+task :travis => [:lint, :spec]
+
+desc 'Run all tests'
+task :test => [:lint, :spec, 'vagrant:provision', 'vagrant:halt']
