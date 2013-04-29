@@ -20,7 +20,11 @@ namespace :vagrant do
     ENV['MANIFEST_FILE']  = MANIFEST_FILE
   end
 
-  task :prepare_modules do
+  task :cleanup_modules do
+    rm_rf MODULES_PATH
+  end
+
+  task :prepare_modules => :cleanup_modules do
     # Install module dependencies as specified in Puppetfile.
     sh 'librarian-puppet', 'install', '--path', MODULES_PATH
   end
