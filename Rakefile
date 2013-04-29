@@ -1,11 +1,12 @@
 require 'puppetlabs_spec_helper/rake_tasks'
 
 namespace :vagrant do
-  MODULE_NAME    = ENV.fetch('MODULE_NAME',
-                             File.basename(File.dirname(__FILE__)).
-                             sub(/^puppet-/, ''))
-  FIXTURES_PATH  = ENV.fetch('FIXTURES_PATH',
-                             File.join(ENV.fetch('TMPDIR', '/tmp'), 'fixtures'))
+  MODULE_NAME = ENV.fetch('MODULE_NAME',
+                          File.basename(File.dirname(__FILE__)).
+                          sub(/^puppet-/, ''))
+  FIXTURES_PATH = ENV.fetch('FIXTURES_PATH',
+                            File.join(ENV.fetch('TMPDIR', '/tmp'),
+                                      'puppet-fixtures', MODULE_NAME))
   MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
   MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
   MANIFEST_FILE  = 'init.pp'
