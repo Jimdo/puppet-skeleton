@@ -8,7 +8,7 @@ namespace :vagrant do
                              File.basename(File.dirname(__FILE__)).
                              sub(/^puppet-/, ''))
   FIXTURES_PATH  = ENV.fetch('FIXTURES_PATH',
-                             File.join(ENV['TMPDIR'], 'fixtures'))
+                             File.join(ENV.fetch('TMPDIR', '/tmp'), 'fixtures'))
   MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
   MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
   MANIFEST_FILE  = 'init.pp'
