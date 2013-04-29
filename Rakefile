@@ -42,6 +42,10 @@ namespace :vagrant do
     end.each { |cmd| sh 'vagrant', cmd }
   end
 
+  task :ssh do
+    sh 'vagrant', 'ssh'
+  end
+
   task :halt do
     sh 'vagrant', 'halt', '--force'
   end
