@@ -33,6 +33,7 @@ namespace :vagrant do
     end
   end
 
+  desc 'Provision the VM using Puppet'
   task :provision => [:prepare_modules, :prepare_manifest, :export_vars] do
     # Provision VM depending on its state.
     case `vagrant status`
@@ -42,14 +43,17 @@ namespace :vagrant do
     end.each { |cmd| sh 'vagrant', cmd }
   end
 
+  desc 'SSH into the VM'
   task :ssh do
     sh 'vagrant', 'ssh'
   end
 
+  desc 'Shutdown the VM'
   task :halt do
     sh 'vagrant', 'halt', '--force'
   end
 
+  desc 'Destroy the VM'
   task :destroy => :export_vars do
     sh 'vagrant', 'destroy', '--force'
   end
