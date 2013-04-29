@@ -4,8 +4,11 @@ desc 'Run all tests'
 task :test => [:lint, :spec]
 
 namespace :vagrant do
-  MODULE_NAME    = ENV['MODULE_NAME'] || File.basename(File.dirname(__FILE__))
-  FIXTURES_PATH  = ENV['FIXTURES_PATH'] || File.join(ENV['TMPDIR'], 'fixtures')
+  MODULE_NAME    = ENV.fetch('MODULE_NAME',
+                             File.basename(File.dirname(__FILE__)).
+                             sub(/^puppet-/, ''))
+  FIXTURES_PATH  = ENV.fetch('FIXTURES_PATH',
+                             File.join(ENV['TMPDIR'], 'fixtures'))
   MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
   MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
   MANIFEST_FILE  = 'init.pp'
@@ -23,11 +26,10 @@ namespace :vagrant do
   end
 
   task :prepare_manifest do
-    # FIXME: Write manifest file as entry point for testing.
+    # Write manifest file as entry point for testing.
     mkdir_p MANIFESTS_PATH
     open(File.join(MANIFESTS_PATH, MANIFEST_FILE), 'w') do |f|
-      f.write "class { 'apt': }\n"
-      f.write "include apt::update\n"
+      f.write "include #{MODULE_NAME}\n"
     end
   end
 
