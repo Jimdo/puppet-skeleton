@@ -6,9 +6,9 @@ Vagrant::Config.run do |config|
   config.vm.host_name = 'skeleton-debian'
 
   config.vm.provision :puppet do |puppet|
-    puppet.module_path    = ENV.fetch('MODULES_PATH', 'modules')
+    puppet.module_path    = ENV.fetch('MODULES_PATH', nil)
     puppet.manifests_path = ENV.fetch('MANIFESTS_PATH', 'manifests')
-    puppet.manifest_file  = ENV.fetch('MANIFEST_FILE', 'site.pp')
+    puppet.manifest_file  = ENV.fetch('MANIFEST_FILE', 'init.pp')
     puppet.options        = '--verbose --debug'
   end
 end
