@@ -72,11 +72,12 @@ specs utilize [rspec-puppet].
 ## Vagrant
 
 With [Vagrant], you can spin up a virtual machine and run your module inside it
-via Puppet Apply or Puppet Agent. The test setup requires to install **Vagrant
-1.2.x** from the [Vagrant downloads page].
+via Puppet Apply. The test setup requires to install **Vagrant 1.1.x** from the
+[Vagrant downloads page].
 
 When everything is in place, this command will boot and provision the VM as
-specified in the `Vagrantfile`:
+specified in the `Vagrantfile`, using the manifest `test/site.pp` as the entry
+point for integration testing:
 
     $ rake vagrant:provision
 
