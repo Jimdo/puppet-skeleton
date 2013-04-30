@@ -1,19 +1,24 @@
 require 'puppetlabs_spec_helper/rake_tasks'
 
 namespace :vagrant do
-  MODULE_NAME = ENV.fetch('MODULE_NAME',
-                          File.basename(File.dirname(__FILE__)).
-                          sub(/^puppet-/, ''))
-  FIXTURES_PATH = ENV.fetch('FIXTURES_PATH',
-                            File.join(ENV.fetch('TMPDIR', '/tmp'),
-                                      'puppet-fixtures', MODULE_NAME))
+  def module_name
+    ENV.fetch('MODULE_NAME', File.basename(File.dirname(__FILE__)).sub(/^puppet-/, ''))
+  end
+
+  def fixtures_path
+    root = ENV.fetch('TMPDIR', '/tmp')
+    ENV.fetch('FIXTURES_PATH', File.join(root, 'puppet-fixtures', module_name))
+  end
+
+  MODULE_NAME    = module_name
+  FIXTURES_PATH  = fixtures_path
   MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
   MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
   MANIFEST_NAME  = 'site.pp'
   MANIFEST_FILE  = File.join('test', MANIFEST_NAME)
 
+  # Export settings to Vagrantfile.
   task :export_vars do
-    # Export settings to Vagrantfile.
     ENV['MODULES_PATH']   = MODULES_PATH
     ENV['MANIFESTS_PATH'] = MANIFESTS_PATH
     ENV['MANIFEST_FILE']  = MANIFEST_NAME  # relative to MANIFESTS_PATH
