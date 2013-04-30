@@ -23,6 +23,10 @@ Then let Bundler install the required gems (as defined in `Gemfile`):
 
     $ bundle install
 
+If you like to install the gems locally inside the module, do this instead:
+
+    $ bundle install --path vendor/gems
+
 Now you can use `bundle exec` to execute a command from the gemset, for example:
 
     $ bundle exec rake test
