@@ -31,7 +31,7 @@ namespace :vagrant do
     # Write manifest file as entry point for testing.
     mkdir_p MANIFESTS_PATH
     open(File.join(MANIFESTS_PATH, MANIFEST_FILE), 'w') do |f|
-      f.write "include #{MODULE_NAME}\n"
+      f.write "include #{MODULE_NAME}::vagrant\n"
     end
   end
 
