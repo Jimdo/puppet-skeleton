@@ -9,34 +9,38 @@ namespace :vagrant do
                                       'puppet-fixtures', MODULE_NAME))
   MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
   MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
-  MANIFEST_FILE  = 'init.pp'
+  MANIFEST_NAME  = 'site.pp'
+  MANIFEST_FILE  = File.join('test', MANIFEST_NAME)
 
   task :export_vars do
     # Export settings to Vagrantfile.
     ENV['MODULES_PATH']   = MODULES_PATH
     ENV['MANIFESTS_PATH'] = MANIFESTS_PATH
-    ENV['MANIFEST_FILE']  = MANIFEST_FILE
+    ENV['MANIFEST_FILE']  = MANIFEST_NAME  # relative to MANIFESTS_PATH
   end
 
   task :cleanup_modules do
     rm_rf MODULES_PATH
   end
 
+  # Install module dependencies as specified in Puppetfile.
   task :prepare_modules => :cleanup_modules do
-    # Install module dependencies as specified in Puppetfile.
+    mkdir_p MODULES_PATH
     sh 'librarian-puppet', 'install', '--path', MODULES_PATH
   end
 
-  task :prepare_manifest do
-    # Write manifest file as entry point for testing.
+  task :cleanup_manifests do
+    rm_rf MANIFESTS_PATH
+  end
+
+  # Prepare manifest as entry point for testing.
+  task :prepare_manifests => :cleanup_manifests do
     mkdir_p MANIFESTS_PATH
-    open(File.join(MANIFESTS_PATH, MANIFEST_FILE), 'w') do |f|
-      f.write "include #{MODULE_NAME}::vagrant\n"
-    end
+    cp MANIFEST_FILE, MANIFESTS_PATH
   end
 
   desc 'Provision the VM using Puppet'
-  task :provision => [:prepare_modules, :prepare_manifest, :export_vars] do
+  task :provision => [:prepare_modules, :prepare_manifests, :export_vars] do
     # Provision VM depending on its state.
     case `vagrant status`
     when /The VM is running/ then ['provision']
