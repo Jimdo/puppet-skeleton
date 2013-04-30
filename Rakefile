@@ -24,24 +24,23 @@ namespace :vagrant do
     ENV['MANIFEST_FILE']  = MANIFEST_NAME  # relative to MANIFESTS_PATH
   end
 
-  task :cleanup_modules do
-    rm_rf MODULES_PATH
-  end
-
   # Install module dependencies as specified in Puppetfile.
-  task :prepare_modules => :cleanup_modules do
+  task :prepare_modules do
+    rm_rf MODULES_PATH
     mkdir_p MODULES_PATH
     sh 'librarian-puppet', 'install', '--path', MODULES_PATH
   end
 
-  task :cleanup_manifests do
-    rm_rf MANIFESTS_PATH
-  end
-
   # Prepare manifest as entry point for testing.
-  task :prepare_manifests => :cleanup_manifests do
+  task :prepare_manifests do
+    rm_rf MANIFESTS_PATH
     mkdir_p MANIFESTS_PATH
     cp MANIFEST_FILE, MANIFESTS_PATH
+  end
+
+  # Remove fixtures.
+  task :cleanup do
+    rm_rf FIXTURES_PATH
   end
 
   desc 'Provision the VM using Puppet'
@@ -67,6 +66,7 @@ namespace :vagrant do
   desc 'Destroy the VM'
   task :destroy => :export_vars do
     sh 'vagrant', 'destroy', '--force'
+    Rake::Task['vagrant:cleanup'].invoke
   end
 end
 
