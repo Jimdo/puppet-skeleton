@@ -38,7 +38,13 @@ namespace :vagrant do
 
   # Prepare module and its dependencies as specified in Puppetfile.
   task :prepare_modules do
-    sh 'librarian-puppet', 'install', '--path', MODULES_PATH, '--destructive'
+    if File.file?('Puppetfile')
+      sh 'librarian-puppet', 'install', '--path', MODULES_PATH, '--destructive'
+    else
+      rm_rf MODULES_PATH
+      mkdir_p MODULES_PATH
+    end
+
     module_dir = File.join(MODULES_PATH, module_name)
     mkdir_p module_dir
     cp_r Dir.glob('{files,lib,manifests,templates}'), module_dir
