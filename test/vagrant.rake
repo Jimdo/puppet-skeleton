@@ -17,18 +17,13 @@
 #
 
 namespace :vagrant do
+  # Get module name from directory name; strip "puppet-" prefix.
   def module_name
-    ENV.fetch('MODULE_NAME', File.basename(File.expand_path('../..', __FILE__)).
-                             sub(/^puppet-/, ''))
+    File.basename(File.expand_path('../..', __FILE__)).sub(/^puppet-/, '')
   end
 
-  def fixtures_path
-    root = ENV.fetch('TMPDIR', '/tmp')
-    ENV.fetch('FIXTURES_PATH', File.join(root, 'puppet-fixtures', module_name))
-  end
-
-  MODULE_NAME    = module_name
-  FIXTURES_PATH  = fixtures_path
+  MODULE_NAME    = ENV.fetch('MODULE_NAME', module_name)
+  FIXTURES_PATH  = ENV.fetch('FIXTURES_PATH', 'fixtures')
   MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
   MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
   MANIFEST_NAME  = 'site.pp'
@@ -41,9 +36,12 @@ namespace :vagrant do
     ENV['MANIFEST_FILE']  = MANIFEST_NAME  # relative to MANIFESTS_PATH
   end
 
-  # Install module dependencies as specified in Puppetfile.
+  # Prepare module and its dependencies as specified in Puppetfile.
   task :prepare_modules do
     sh 'librarian-puppet', 'install', '--path', MODULES_PATH, '--destructive'
+    module_dir = File.join(MODULES_PATH, module_name)
+    mkdir_p module_dir
+    cp_r Dir.glob('{files,lib,manifests,templates}'), module_dir
   end
 
   # Prepare manifest as entry point for testing.
@@ -53,13 +51,15 @@ namespace :vagrant do
     cp MANIFEST_FILE, MANIFESTS_PATH
   end
 
+  task :prepare => [:prepare_modules, :prepare_manifests]
+
   # Remove fixtures.
   task :cleanup do
     rm_rf FIXTURES_PATH
   end
 
   desc 'Provision the VM using Puppet'
-  task :provision => [:prepare_modules, :prepare_manifests, :export_vars] do
+  task :provision => [:prepare, :export_vars] do
     # Provision VM depending on its state.
     case `vagrant status`
     when /The VM is running/ then ['provision']
