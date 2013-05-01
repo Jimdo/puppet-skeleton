@@ -43,9 +43,7 @@ namespace :vagrant do
 
   # Install module dependencies as specified in Puppetfile.
   task :prepare_modules do
-    rm_rf MODULES_PATH
-    mkdir_p MODULES_PATH
-    sh 'librarian-puppet', 'install', '--path', MODULES_PATH
+    sh 'librarian-puppet', 'install', '--path', MODULES_PATH, '--destructive'
   end
 
   # Prepare manifest as entry point for testing.
