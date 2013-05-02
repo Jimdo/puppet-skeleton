@@ -23,6 +23,10 @@ Then let Bundler install the required gems (as defined in `Gemfile`):
 
     $ bundle install
 
+If you like to install the gems locally inside the module, do this instead:
+
+    $ bundle install --path vendor/gems
+
 Now you can use `bundle exec` to execute a command from the gemset, for example:
 
     $ bundle exec rake test
@@ -34,16 +38,21 @@ Now you can use `bundle exec` to execute a command from the gemset, for example:
 The module provides a couple of helpful [Rake] tasks (specified in `Rakefile`):
 
     $ rake -T
-    rake build            # Build puppet module package
-    rake clean            # Clean a built module package
-    rake coverage         # Generate code coverage information
-    rake help             # Display the list of available rake tasks
-    rake lint             # Check puppet manifests with puppet-lint
-    rake spec             # Run spec tests in a clean fixtures directory
-    rake spec_clean       # Clean up the fixtures directory
-    rake spec_prep        # Create the fixtures directory
-    rake spec_standalone  # Run spec tests on an existing fixtures directory
-    rake test             # Run all tests
+    rake build              # Build puppet module package
+    rake clean              # Clean a built module package
+    rake coverage           # Generate code coverage information
+    rake help               # Display the list of available rake tasks
+    rake lint               # Check puppet manifests with puppet-lint
+    rake spec               # Run spec tests in a clean fixtures directory
+    rake spec_clean         # Clean up the fixtures directory
+    rake spec_prep          # Create the fixtures directory
+    rake spec_standalone    # Run spec tests on an existing fixtures directory
+    rake test               # Run all tests
+    rake travis             # Run lint checks and spec examples
+    rake vagrant:destroy    # Destroy the VM
+    rake vagrant:halt       # Shutdown the VM
+    rake vagrant:provision  # Provision the VM using Puppet
+    rake vagrant:ssh        # SSH into the VM
 
 As mentioned above, use `bundle exec` to start a Rake task:
 
@@ -63,21 +72,20 @@ specs utilize [rspec-puppet].
 ## Vagrant
 
 With [Vagrant], you can spin up a virtual machine and run your module inside it
-via Puppet Apply or Puppet Agent. The test setup requires to install **Vagrant
-1.2.x** from the [Vagrant downloads page].
+via Puppet Apply. The test setup requires to install **Vagrant 1.1.x** from the
+[Vagrant downloads page].
 
 When everything is in place, this command will boot and provision the VM as
-specified in the `Vagrantfile`:
+specified in the `Vagrantfile`, using the manifest `test/site.pp` as the entry
+point for integration testing:
 
-    $ vagrant up
-
-In case the VM is already up, you can run the provisioners again with:
-
-    $ vagrant provision
+    $ rake vagrant:provision
 
 Finally, if you no longer need the VM, you can destroy it:
 
-    $ vagrant destroy --force
+    $ rake vagrant:destroy
+
+See Rake section above for a complete list of all Vagrant-specific tasks.
 
 ## Travis CI
 
