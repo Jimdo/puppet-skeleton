@@ -16,6 +16,7 @@
 # limitations under the License.
 #
 
+require 'rake/clean'
 require 'rspec/core/rake_task'
 
 # Get module name from directory name; strip "puppet-" prefix.
@@ -30,6 +31,8 @@ MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
 MANIFEST_NAME  = 'site.pp'
 MANIFEST_FILE  = File.join('test', MANIFEST_NAME)
 LINT_IGNORE    = [FIXTURES_PATH + '/**/*', 'vendor/**/*']
+
+CLOBBER.include FIXTURES_PATH, '.librarian', '.tmp', '.vagrant'
 
 namespace :test do
   # Prepare module and its dependencies as specified in Puppetfile.
@@ -108,7 +111,7 @@ namespace :vagrant do
   desc 'Destroy the VM'
   task :destroy => :export_vars do
     sh 'vagrant', 'destroy', '--force'
-    Rake::Task['vagrant:cleanup'].invoke
+    Rake::Task['test:cleanup'].invoke
   end
 end
 
