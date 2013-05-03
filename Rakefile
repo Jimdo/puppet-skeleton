@@ -76,8 +76,20 @@ namespace :test do
   end
   task :spec => :prepare
 
+  desc 'Run integration tests with Vagrant'
+  task :integration => 'vagrant:provision'
+
+  desc 'Tear down VM used for integration tests'
+  task :integration_teardown do
+    # Shut VM down unless INTEGRATION_TEARDOWN is set to a different task.
+    Rake::Task[ENV.fetch('INTEGRATION_TEARDOWN', 'vagrant:halt')].invoke
+  end
+
   desc 'Run test:lint and test:spec'
   task :travis => [:lint, :spec]
+
+  desc 'Run test:lint, test:spec, and test:integration'
+  task :all => [:lint, :spec, :integration, :integration_teardown]
 end
 
 namespace :vagrant do
@@ -115,11 +127,9 @@ namespace :vagrant do
   end
 end
 
-desc 'Run test:lint, test:spec, and vagrant:provision'
-task :test => ['test:lint', 'test:spec', 'vagrant:provision', 'vagrant:halt']
-
 # Aliases for backwards compatibility and convenience
 task :lint => 'test:lint'
 task :spec => 'test:spec'
+task :test => 'test:all'
 
 task :default => :test
