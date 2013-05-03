@@ -30,7 +30,6 @@ MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
 MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
 MANIFEST_NAME  = 'site.pp'
 MANIFEST_FILE  = File.join('test', MANIFEST_NAME)
-LINT_IGNORE    = [FIXTURES_PATH + '/**/*', 'vendor/**/*']
 
 CLOBBER.include FIXTURES_PATH, '.librarian', '.tmp', '.vagrant'
 
@@ -66,7 +65,10 @@ namespace :test do
   desc 'Check manifests with puppet-lint'
   task :lint do
     require 'puppet-lint/tasks/puppet-lint'
-    PuppetLint.configuration.ignore_paths = LINT_IGNORE
+    PuppetLint.configuration.ignore_paths = [
+      FIXTURES_PATH + '/**/*',
+      'vendor/**/*'
+    ]
   end
 
   desc 'Run RSpec examples'
@@ -76,6 +78,8 @@ namespace :test do
   end
   task :spec => :prepare
 
+  # TODO test:integration is currently the same as vagrant:provision; planning
+  # to execute some actual tests at the end of the configuration run here
   desc 'Run integration tests with Vagrant'
   task :integration => 'vagrant:provision'
 
