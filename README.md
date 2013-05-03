@@ -9,8 +9,18 @@ infrastructure code with Puppet and feel confident about it. See file
 (While you're encouraged to customize everything in this module to fit your
 needs, I recommend keeping the `TESTING.md` file as-is.)
 
+Requirements
+------------
+
+*List supported platforms and module dependencies here*
+
+Manifests
+---------
+
+*List and explain the contained manifests here*
+
 Testing
-=======
+-------
 
 Everything you need to know about testing this module is explained in
 `TESTING.md`.
@@ -18,7 +28,7 @@ Everything you need to know about testing this module is explained in
 [![Build Status](https://travis-ci.org/Jimdo/puppet-skeleton.png?branch=master)](https://travis-ci.org/Jimdo/puppet-skeleton)
 
 License and Author
-==================
+------------------
 
 Author:: Mathias Lafeldt (<mathias.lafeldt@gmail.com>)
 
