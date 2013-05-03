@@ -38,21 +38,18 @@ Now you can use `bundle exec` to execute a command from the gemset, for example:
 The module provides a couple of helpful [Rake] tasks (specified in `Rakefile`):
 
     $ rake -T
-    rake build              # Build puppet module package
-    rake clean              # Clean a built module package
-    rake coverage           # Generate code coverage information
-    rake help               # Display the list of available rake tasks
-    rake lint               # Check puppet manifests with puppet-lint
-    rake spec               # Run spec tests in a clean fixtures directory
-    rake spec_clean         # Clean up the fixtures directory
-    rake spec_prep          # Create the fixtures directory
-    rake spec_standalone    # Run spec tests on an existing fixtures directory
-    rake test               # Run all tests
-    rake travis             # Run lint checks and spec examples
-    rake vagrant:destroy    # Destroy the VM
-    rake vagrant:halt       # Shutdown the VM
-    rake vagrant:provision  # Provision the VM using Puppet
-    rake vagrant:ssh        # SSH into the VM
+    rake clean                      # Remove any temporary products.
+    rake clobber                    # Remove any generated file.
+    rake test:all                   # Run test:lint, test:spec, and test:integration
+    rake test:integration           # Run integration tests with Vagrant
+    rake test:integration_teardown  # Tear down VM used for integration tests
+    rake test:lint                  # Check manifests with puppet-lint
+    rake test:spec                  # Run RSpec examples
+    rake test:travis                # Run test:lint and test:spec
+    rake vagrant:destroy            # Destroy the VM
+    rake vagrant:halt               # Shutdown the VM
+    rake vagrant:provision          # Provision the VM using Puppet
+    rake vagrant:ssh                # SSH into the VM
 
 As mentioned above, use `bundle exec` to start a Rake task:
 
@@ -62,12 +59,13 @@ All test-related tasks are described in more detail below.
 
 ## puppet-lint
 
-The Rake task `lint` will use [puppet-lint] to run lint checks on the module.
+The Rake task `test:lint` will use [puppet-lint] to run lint checks on the
+module.
 
 ## puppet-rspec
 
-The Rake task `spec` will run all RSpec examples in the `spec` directory. The
-specs utilize [rspec-puppet].
+The Rake task `test:spec` will run all RSpec examples in the `spec` directory.
+The specs utilize [rspec-puppet].
 
 ## Vagrant
 
