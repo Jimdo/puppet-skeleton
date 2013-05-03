@@ -11,6 +11,3 @@
 
 # Vagrant
 .vagrant
-
-# Fixtures
-/spec/fixtures/
