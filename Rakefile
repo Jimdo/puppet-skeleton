@@ -1,7 +1,9 @@
 #
 # Rake tasks to test your Puppet module
 #
-# Copyright (C) 2013 Mathias Lafeldt <mathias.lafeldt@gmail.com>
+# Written by Mathias Lafeldt <mathias.lafeldt@gmail.com>
+#
+# Copyright (C) 2013 Jimdo GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
