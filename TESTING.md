@@ -1,5 +1,5 @@
 Testing
-=======
+-------
 
 This module comes with everything you need to develop infrastructure code with
 Puppet and feel confident about it. The provided testing facilities allow you to
@@ -8,7 +8,7 @@ iterate quickly on cookbook changes.
 After installing Vagrant and the required Ruby gems, most of the testing can be
 done through convenient Rake tasks.
 
-## Bundler
+### Bundler
 
 Apart from Vagrant, which is described later on, all tools you need for module
 development and testing are installed as Ruby gems using [Bundler]. This gives
@@ -33,7 +33,7 @@ Now you can use `bundle exec` to execute a command from the gemset, for example:
 
 (You should keep `Gemfile.lock` checked in.)
 
-## Rake
+### Rake
 
 The module provides a couple of helpful [Rake] tasks (specified in `Rakefile`):
 
@@ -57,17 +57,17 @@ As mentioned above, use `bundle exec` to start a Rake task:
 
 All test-related tasks are described in more detail below.
 
-## puppet-lint
+### puppet-lint
 
 The Rake task `test:lint` will use [puppet-lint] to run lint checks on the
 module.
 
-## puppet-rspec
+### puppet-rspec
 
 The Rake task `test:spec` will run all RSpec examples in the `spec` directory.
 The specs utilize [rspec-puppet].
 
-## Vagrant
+### Vagrant
 
 With [Vagrant], you can spin up a virtual machine and run your module inside it
 via Puppet Apply. The test setup requires to install **Vagrant 1.1.x** from the
@@ -85,7 +85,7 @@ Finally, if you no longer need the VM, you can destroy it:
 
 See Rake section above for a complete list of all Vagrant-specific tasks.
 
-## Travis CI
+### Travis CI
 
 The module includes a configuration for [Travis CI] that will run `rake test`
 each time changes are pushed to GitHub. Simply enable Travis for your GitHub
