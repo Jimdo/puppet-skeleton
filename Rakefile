@@ -31,7 +31,7 @@ FIXTURES_PATH  = ENV.fetch('FIXTURES_PATH', 'fixtures')
 MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
 MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
 MANIFEST_NAME  = 'site.pp'
-MANIFEST_FILE  = File.join('test', MANIFEST_NAME)
+MANIFEST_FILE  = File.join('test', 'integration', MANIFEST_NAME)
 
 CLOBBER.include FIXTURES_PATH, '.librarian', '.tmp', '.vagrant'
 
