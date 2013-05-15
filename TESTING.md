@@ -74,8 +74,8 @@ via Puppet Apply. The test setup requires to install **Vagrant 1.1.x** from the
 [Vagrant downloads page].
 
 When everything is in place, this command will boot and provision the VM as
-specified in the `Vagrantfile`, using the manifest `test/site.pp` as the entry
-point for integration testing:
+specified in the `Vagrantfile`, using the manifest `test/integration/site.pp` as
+the entry point for integration testing:
 
     $ rake vagrant:provision
 
