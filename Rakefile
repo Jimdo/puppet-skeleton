@@ -31,7 +31,6 @@ FIXTURES_PATH  = ENV.fetch('FIXTURES_PATH', 'fixtures')
 MODULES_PATH   = File.join(FIXTURES_PATH, 'modules')
 MANIFESTS_PATH = File.join(FIXTURES_PATH, 'manifests')
 MANIFEST_NAME  = 'site.pp'
-MANIFEST_FILE  = File.join('test', MANIFEST_NAME)
 
 CLOBBER.include FIXTURES_PATH, '.librarian', '.tmp', '.vagrant'
 
@@ -50,14 +49,20 @@ namespace :test do
     cp_r Dir.glob('{files,lib,manifests,templates}'), module_dir
   end
 
-  # Prepare manifest as entry point for testing.
+  # Prepare manifest as entry point for integration testing.
   task :prepare_manifests do
     rm_rf MANIFESTS_PATH
     mkdir_p MANIFESTS_PATH
-    cp MANIFEST_FILE, MANIFESTS_PATH
+    cp File.join('test', 'integration', MANIFEST_NAME), MANIFESTS_PATH
   end
 
-  task :prepare => [:prepare_modules, :prepare_manifests]
+  # Prepare empty site.pp for rspec-puppet.
+  task :prepare_manifests_for_rspec do
+    manifest_dir = MANIFESTS_PATH + '-rspec'
+    rm_rf manifest_dir
+    mkdir_p manifest_dir
+    touch File.join(manifest_dir, MANIFEST_NAME)
+  end
 
   # Remove fixtures.
   task :cleanup do
@@ -78,7 +83,7 @@ namespace :test do
     t.pattern = 'spec/{classes,defines,unit,functions,hosts}/**/*_spec.rb'
     t.rspec_opts = '--color --format documentation'
   end
-  task :spec => :prepare
+  task :spec => [:prepare_modules, :prepare_manifests_for_rspec]
 
   # TODO test:integration is currently the same as vagrant:provision; planning
   # to execute some actual tests at the end of the configuration run here
@@ -107,7 +112,7 @@ namespace :vagrant do
   end
 
   desc 'Provision the VM using Puppet'
-  task :provision => ['test:prepare', :export_vars] do
+  task :provision => ['test:prepare_modules', 'test:prepare_manifests', :export_vars] do
     # Provision VM depending on its state.
     case `vagrant status`
     when /The VM is running/ then ['provision']
