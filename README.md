@@ -27,6 +27,14 @@ Everything you need to know about testing this module is explained in
 
 [![Build Status](https://travis-ci.org/Jimdo/puppet-skeleton.png?branch=master)](https://travis-ci.org/Jimdo/puppet-skeleton)
 
+Endorsments
+-----------
+
+> puppet-skeleton really kicks ass for module development. esp. the vagrant
+> integration test! <3
+
+-- [Soenke Ruempler](https://github.com/s0enke)
+
 License and Author
 ------------------
 
