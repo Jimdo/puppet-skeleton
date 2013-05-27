@@ -85,25 +85,12 @@ namespace :test do
   end
   task :spec => [:prepare_modules, :prepare_manifests_for_rspec]
 
-  def ssh_config(vm_name = 'default')
-    `vagrant ssh-config #{vm_name} --host #{vm_name}`
+  desc 'Run serverspec integration tests with Vagrant'
+  RSpec::Core::RakeTask.new(:integration) do |t|
+    t.pattern = 'spec/integration/**/*_spec.rb'
+    t.rspec_opts = '--color --format documentation'
   end
-
-  # TODO test:integration is currently the same as vagrant:provision; planning
-  # to execute some actual tests at the end of the configuration run here
-  desc 'Run integration tests with Vagrant'
-  task :integration do
-    config = ssh_config
-    config_file = File.join('spec/integration/default/ssh_config')
-
-    unless File.file?(config_file)
-      File.open(config_file, 'w') { |file| file.write(config) }
-    end
-
-    Rake::Task['vagrant:provision'].invoke
-
-    sh 'rspec', 'spec/integration/default'
-  end
+  task :integration => 'vagrant:provision'
 
   desc 'Tear down VM used for integration tests'
   task :integration_teardown do
