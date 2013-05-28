@@ -73,7 +73,8 @@ The Rake task `test:integration` will run [serverspec] integration tests against
 a VM managed by Vagrant. The manifest `test/integration/site.pp` is the entry
 point for integration testing, while `spec/integration/**/*_spec.rb` are the
 actual test files that are run at the end of the provisioning process by ssh'ing
-into the VM.
+into the VM. For each VM you want to test, there must be a folder with specs in
+`spec/integration/` (the default node specs are in `spec/integration/default`).
 
 In case the VM is powered off, `rake test:integration` will boot it up first.
 When you no longer need the VM for integration testing, `rake
