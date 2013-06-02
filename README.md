@@ -4,10 +4,13 @@ Skeleton Puppet Module
 This is a testable Puppet module designed for you or your organization to fork
 and modify appropriately. The module comes with everything you need to develop
 infrastructure code with Puppet and feel confident about it. See file
-`TESTING.md` to learn more.
+`TESTING.md` to learn more. (While you're encouraged to customize everything in
+this module to fit your needs, I recommend keeping the `TESTING.md` file as-is.)
 
-(While you're encouraged to customize everything in this module to fit your
-needs, I recommend keeping the `TESTING.md` file as-is.)
+> puppet-skeleton really kicks ass for module development. esp. the vagrant
+> integration test! <3
+
+-- [Soenke Ruempler](https://github.com/s0enke)
 
 Requirements
 ------------
@@ -26,14 +29,6 @@ Everything you need to know about testing this module is explained in
 `TESTING.md`.
 
 [![Build Status](https://travis-ci.org/Jimdo/puppet-skeleton.png?branch=master)](https://travis-ci.org/Jimdo/puppet-skeleton)
-
-Endorsments
------------
-
-> puppet-skeleton really kicks ass for module development. esp. the vagrant
-> integration test! <3
-
--- [Soenke Ruempler](https://github.com/s0enke)
 
 License and Author
 ------------------
