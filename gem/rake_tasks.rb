@@ -24,7 +24,7 @@ require 'rspec/core/rake_task'
 
 # Get module name from directory name; strip "puppet-" prefix.
 def module_name
-  File.basename(File.dirname(__FILE__)).sub(/^puppet-/, '')
+  File.basename(Dir.pwd).sub(/^puppet-/, '')
 end
 
 MODULE_NAME    = ENV.fetch('MODULE_NAME', module_name)
