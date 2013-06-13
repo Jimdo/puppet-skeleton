@@ -56,7 +56,9 @@ As mentioned above, use `bundle exec` to start a Rake task:
 
     $ bundle exec rake test
 
-All test-related tasks are described in more detail below.
+The `test` task is an alias for `test:all` and also happens to be the default
+when no task is given. All test-related tasks are described in more detail
+below.
 
 ### puppet-lint
 
@@ -106,9 +108,9 @@ See Rake section above for a complete list of all Vagrant-specific tasks.
 
 ### Travis CI
 
-The module includes a configuration for [Travis CI] that will run `rake test`
-each time changes are pushed to GitHub. Simply enable Travis for your GitHub
-repository to get free continuous integration.
+The module includes a configuration for [Travis CI] that will run `rake
+test:travis` each time changes are pushed to GitHub. Simply enable Travis for
+your GitHub repository to get free continuous integration.
 
 Implementing CI with other systems should be as simple as running the commands
 in `.travis.yml`.
