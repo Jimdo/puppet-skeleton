@@ -84,7 +84,7 @@ When you no longer need the VM for integration testing, `rake
 test:integration_teardown` will shut it down. If you rather want to provision
 from scratch, set `INTEGRATION_TEARDOWN` accordingly. For example:
 
-    $ export INTEGRATION_TEARDOWN='vagrant destroy -f'
+    $ export INTEGRATION_TEARDOWN='vagrant:destroy'
     $ rake test:integration_teardown
     $ rake test:integration
 
