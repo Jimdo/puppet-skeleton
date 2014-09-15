@@ -91,8 +91,8 @@ from scratch, set `INTEGRATION_TEARDOWN` accordingly. For example:
 ### Vagrant
 
 With [Vagrant], you can spin up a virtual machine and run your module inside it
-via Puppet Apply. The test setup requires to install **Vagrant 1.1.x** from the
-[Vagrant downloads page].
+via Puppet Apply. The test setup requires to install Vagrant 1.5 or higher from
+the [Vagrant downloads page].
 
 When everything is in place, this command will boot and provision the VM as
 specified in the `Vagrantfile`, using the manifest `test/integration/site.pp` as
@@ -117,9 +117,9 @@ in `.travis.yml`.
 
 
 [Bundler]: http://gembundler.com
-[Rake]: http://rake.rubyforge.org
+[Rake]: https://github.com/jimweirich/rake
 [Travis CI]: https://travis-ci.org
-[Vagrant downloads page]: http://downloads.vagrantup.com/
+[Vagrant downloads page]: http://www.vagrantup.com/downloads.html
 [Vagrant]: http://vagrantup.com
 [puppet-lint]: http://puppet-lint.com/
 [rspec-puppet]: http://rspec-puppet.com/
