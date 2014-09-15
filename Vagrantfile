@@ -1,8 +1,8 @@
 # vi: set ft=ruby :
 
 Vagrant::Config.run do |config|
-  config.vm.box = 'jimdo-debian-6.0.7'
-  config.vm.box_url = 'https://jimdo-vagrant-boxes.s3.amazonaws.com/jimdo-debian-6.0.7.box'
+  config.vm.box = 'jimdo-debian-7.5.0'
+  config.vm.box_url = 'https://jimdo-vagrant-boxes.s3.amazonaws.com/jimdo-debian-7.5.0.box'
   config.vm.host_name = 'skeleton-debian'
 
   config.vm.provision :shell, :privileged => false do |s|
