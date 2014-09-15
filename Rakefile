@@ -133,12 +133,8 @@ namespace :vagrant do
 
   desc 'Provision the VM using Puppet'
   task :provision => ['test:prepare_modules', 'test:prepare_manifests', :export_vars] do
-    # Provision VM depending on its state.
-    case `vagrant status`
-    when /The VM is running/ then ['provision']
-    when /To resume this VM/ then ['up', 'provision']
-    else ['up']
-    end.each { |cmd| sh 'vagrant', cmd }
+    sh 'vagrant', 'up', '--no-provision'
+    sh 'vagrant', 'provision'
   end
 
   desc 'SSH into the VM'
