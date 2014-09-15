@@ -13,6 +13,9 @@ if test "$CURRENT" = "$VERSION"; then
     exit 0
 fi
 
+echo "Removing any Puppet gem installations ..."
+sudo gem uninstall -a -x puppet facter 2>/dev/null || true
+
 echo "Installing Puppet version $VERSION ..."
 wget -q https://apt.puppetlabs.com/puppetlabs-release-$DISTRO.deb
 sudo dpkg -i puppetlabs-release-$DISTRO.deb
